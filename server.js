@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const hbs = require("hbs");
-app.set("view engine", "hbs")
+app.set("view engine", "hbs");
 
 // ミドルウェア(middleware)
 app.use(express.static(__dirname + "/public"));
@@ -11,9 +11,10 @@ app.get("/", (req, res) => {
 });
 
 app.get("/about", (req, res) => {
-  res.send({
-    name: "太郎",
-    age: 20
+  res.render("about.hbs", {
+    pageTitle: "About Page",
+    content: "コンテンツです。",
+    currentYear: new Date().getFullYear()
   });
 });
 
