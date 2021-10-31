@@ -1,14 +1,25 @@
 const express = require("express");
 const app = express();
+const hbs = require("hbs");
+app.set("view engine", "hbs");
+hbs.registerPartials(__dirname + "/views/partials");
+hbs.registerHelper("getCurrentYear", () => {
+  return new Date().getFullYear();
+});
+// ミドルウェア(middleware)
+app.use(express.static(__dirname + "/public"));
 
 app.get("/", (req, res) => {
-  res.send("<h1>Hello, Express!</h1>");
+  res.render("home.hbs", {
+    pageTitle: "Home Page",
+    content: "当ホームページへようこそ！"
+  });
 });
 
 app.get("/about", (req, res) => {
-  res.send({
-    name: "太郎",
-    age: 20
+  res.render("about.hbs", {
+    pageTitle: "About Page",
+    content: "コンテンツです。"
   });
 });
 
